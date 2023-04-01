@@ -1,5 +1,6 @@
 {
   "name": "your_project_name",
+  "homepage": "https://nicesaturday.github.io/melon-clone/",
   "version": "1.0.0",
   "description": "xxxx",
   "scripts": {
@@ -8,7 +9,9 @@
     "build:server": "babel src -d build",
     "build:assets": "webpack --mode=production",
     "dev:server": "nodemon",
-    "dev:assets": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack --mode=development -w"
+    "dev:assets": "cross-env webpack --mode=development -w",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@ffmpeg/core": "^0.8.5",
@@ -38,6 +41,7 @@
     "babel-loader": "^8.2.2",
     "cross-env": "^7.0.3",
     "css-loader": "^5.2.2",
+    "gh-pages": "^5.0.0",
     "mini-css-extract-plugin": "^1.5.0",
     "nodemon": "^2.0.7",
     "sass": "^1.32.10",
