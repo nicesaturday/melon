@@ -19,6 +19,8 @@ var _middlewares = require("./middlewares");
 
 var _rootRouter = _interopRequireDefault(require("./routers/rootRouter"));
 
+var _apiRouter = _interopRequireDefault(require("./routers/apiRouter"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var app = (0, _express["default"])();
@@ -47,5 +49,6 @@ app.use("/", _rootRouter["default"]);
 Add more routers here!
 */
 
+app.use("/api", _apiRouter["default"]);
 var _default = app;
 exports["default"] = _default;
