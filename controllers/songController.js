@@ -3,7 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.home = void 0;
+exports.postUpload = exports.getUpload = exports.home = void 0;
+
+var _regeneratorRuntime = require("regenerator-runtime");
 
 var _Song = _interopRequireDefault(require("../models/Song"));
 
@@ -17,15 +19,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var home = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res) {
+    var music;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            _context.next = 2;
+            return _Song["default"].find({});
+
+          case 2:
+            music = _context.sent;
             return _context.abrupt("return", res.render("home", {
-              pageTitle: "Home"
+              pageTitle: "Home",
+              music: music
             }));
 
-          case 1:
+          case 4:
           case "end":
             return _context.stop();
         }
@@ -39,3 +48,58 @@ var home = /*#__PURE__*/function () {
 }();
 
 exports.home = home;
+
+var getUpload = function getUpload(req, res) {
+  return res.render("upload", {
+    pageTitle: "upload"
+  });
+};
+
+exports.getUpload = getUpload;
+
+var postUpload = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(req, res) {
+    var title, _req$files, music, image;
+
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            title = req.body.title;
+            _req$files = req.files, music = _req$files.music, image = _req$files.image;
+            console.log(music, image);
+            console.log(req.body);
+            _context2.prev = 4;
+            _context2.next = 7;
+            return _Song["default"].create({
+              title: title,
+              fileUrl: music[0].path.replace(/[\\]/g, "/"),
+              thumbUrl: image[0].path.replace(/[\\]/g, "/")
+            });
+
+          case 7:
+            return _context2.abrupt("return", res.redirect("/"));
+
+          case 10:
+            _context2.prev = 10;
+            _context2.t0 = _context2["catch"](4);
+            console.log(_context2.t0);
+            return _context2.abrupt("return", res.status(400).render("upload", {
+              pageTitle: "Upload",
+              errorMessage: _context2.t0._message
+            }));
+
+          case 14:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[4, 10]]);
+  }));
+
+  return function postUpload(_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+exports.postUpload = postUpload;
