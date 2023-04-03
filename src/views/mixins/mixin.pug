@@ -1,0 +1,5 @@
+mixin music(music)
+   div  
+    h3=music.title
+    audio(controls) 
+     source(src="/"+music.fileUrl,type="audio/mpeg")

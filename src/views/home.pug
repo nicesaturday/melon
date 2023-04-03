@@ -1,4 +1,7 @@
 extends base
+include mixins/mixin
 
 block content
     div 
+     each potato in music 
+      +music(potato)
